@@ -1,0 +1,182 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #d6ecf0;
+	font-family: "Segoe Script", "南宋书局体", "仿宋", "微软雅黑"; 
+	font-size: 16px; 
+	color: #000;
+}
+
+#code {
+	background: #E4E4E4;
+	padding-right: 5px;
+	padding-top: 10px;
+	padding-bottom: 12px;
+	margin-left: 80px;
+	margin-right: 150px;
+	font-weight: 450;
+	font-family: "Consolas"; 
+	font-size: 15px; 
+	color: #000;
+	border: 1.5px solid #000;
+	border-radius: 5px;
+}
+
+#container {
+	margin: 0 auto; 
+	width: 1200px; 	
+}
+
+#header { 
+	height: 220px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+#header img{
+	border-radius: 15px;
+}
+
+#nav{ 
+	height: 27px;	
+	margin-bottom: 10px;
+	background: #09c; 		
+	font: 18px/27px;
+	font-family: "Segoe Script", "南宋书局体", "仿宋", "微软雅黑"; 
+	color: #000;
+	letter-spacing: 2px;
+    text-align: center;
+	border-radius: 15px;
+}
+
+a:link{
+	color: #000;
+	text-decoration: none;
+}
+
+a:visited{
+	color: #000;
+	text-decoration: none;
+}
+
+a:hover{
+	color: #ffb61e;
+	text-decoration: none;
+}
+
+a:active{
+	color: #000;
+	text-decoration: none;
+}
+
+#main{ 
+	display: flex;
+	flex-direction: row; 
+}
+
+#aside { 
+	float:left; 
+	width: 300px; 
+	background: #6cf;
+	text-align: center;
+	font-size: 14px;
+	color: #000;
+	margin-bottom: 10px;
+	margin-right: 10px;
+	border-radius: 15px;
+}
+
+#aside h2{
+	margin: 20px;
+	font-size: 25px;
+}
+
+#photo {
+	border-width: 20px;
+	border-style: solid;
+	border-color: #f35 #269 #649 #fa0;
+	width: 100px;
+	height: 100px;
+	margin: 1em auto;
+}
+
+#intro {
+	background: #6cf; 		
+	font-family: "Segoe Script", "南宋书局体", "仿宋", "微软雅黑"; 
+	color: #000;
+	letter-spacing: 2px;
+    text-align: center;
+    font-size: 20px;
+	font-weight: bold;
+}
+
+#content{ 
+	float: right; 
+	width: 895px; 
+	margin-bottom: 10px;
+	background: #cff;
+	border-radius: 15px;
+}
+
+ul {
+	display: flex;
+	flex-direction: column;
+	font-size: 30px;
+	width: 845px;
+	padding-left: 37px;
+	padding-top: 15px;
+	list-style:none;
+}
+
+li {
+	border-style: solid;
+	border-radius: 15px;
+	padding-top: 13px;
+	padding-left: 12px;
+	margin-top: 20px;
+	margin-bottom: 50px;
+	margin-right: 23px;
+	background: #e3f9fd;
+}
+
+#text{
+	width: 780px;
+	font-family: "Segoe Script", "南宋书局体", "仿宋", "微软雅黑"; 
+	word-wrap : break-word;
+	text-align: left;
+	font-size: 20px;
+	font-weight: bold;
+	color: #000;
+	margin-bottom: 16px;
+	margin-left: 15px;
+}
+
+#footer { 
+	height:60px; 
+	line-height: 60px;
+	margin-bottom: 10px;
+	background:#09c;
+	clear: both; 
+	text-align: center;
+	border-radius: 15px;
+}
+
+#fix{
+	position: fixed;
+	margin: 0;
+	padding: 0;
+	bottom: 0;
+	right: 2px;
+}
+
+#fix img{
+	margin: 0;
+	padding: 0;
+    height: 200px;
+	width: 150px;
+	vertical-align: bottom;
+}
