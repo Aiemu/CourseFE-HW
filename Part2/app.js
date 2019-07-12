@@ -1,126 +1,128 @@
-//initialize
-let express = require('express');
-let multipart = require('connect-multiparty');
-let app = express();
-let multipartMiddleware = multipart();
-app.listen(8000);
+/**
+ * "@Author ZengZheng 2017011438",
+ * "@E-Mail zengz17@mails.tsinghua.edu.cn",
+ * "@DateTime 2019/7/11"
+ */
 
-//hwtoken
-let hwtoken = 'KMQZTTYWPQEULGYDMIJMOEGOOW';
+// initialize
+const express = require('express')
+const app = express()
 
-//data-saved
-let data = {};
+const multipart = require('connect-multiparty')
+const multipartMiddleware = multipart()
 
-//funtion for token checking
-function Check (req) {
-    if (req.headers['hw-token'] === hwtoken && req.headers['hw-token']) {
-        return true;
-    }
-    else {
-        return false;
-    }
+app.listen(8000)
+
+// hwtoken
+const hwtoken = 'KMQZTTYWPQEULGYDMIJMOEGOOW'
+
+// funtion for token checking
+function Check (tok) {
+  if (tok === hwtoken && tok) {
+    console.log('Check Succeeded')
+    return true
+  } else {
+    console.log('Check Failed')
+    return false
+  }
 }
 
-//API: POST ./api/compute
-app.post('/api/compute', multipartMiddleware, function(req, res) {
-    //check token
-    if (Check(req) === false) {
-        res.send();
-        return;
-    }
-    else {
-        //compute
-        let ret = null;
-        let p1 = Number(req.body.firstParam);
-        let p2 = Number(req.body.secondParam);
+// API: POST ./api/compute
+app.post('/api/compute', multipartMiddleware, function (req, res) {
+  // check token
+  if (Check(req.headers['hw-token']) === false) {
+    res.status(403)
+    res.send()
+  } else {
+    // compute
+    let ret = null
+    const p1 = Number(req.body.firstParam)
+    const p2 = Number(req.body.secondParam)
 
-        switch(req.body.type) {
-            case 'ADD':
-                ret = p1 + p2;
-                break;
-            case 'SUB':
-                ret = p1 - p2;
-                break;
-            case 'MUL': 
-                ret = p1 * p2;
-                break;
-            case 'DIV': 
-                ret = Math.floor(p1 / p2);
-                break;
-        }
+    switch (req.body.type) {
+      case 'ADD':
+        ret = p1 + p2
+        break
+      case 'SUB':
+        ret = p1 - p2
+        break
+      case 'MUL':
+        ret = p1 * p2
+        break
+      case 'DIV':
+        ret = Math.floor(p1 / p2)
+        break
+    }
 
-        //return result
-        res.format({
-            'application/json': function() {
-                res.send({
-                    ans: ret
-                });
-            }
-        });
-        return;
-    }
-});
+    // return result
+    res.format({
+      'application/json': function () {
+        res.send({
+          ans: ret
+        })
+      }
+    })
+  }
+})
 
-//API: POST ./api/pair
-app.post('/api/pair', multipartMiddleware, function(req, res) {
-    //check token
-    if (Check(req) === false) {
-        res.send();
-        return;
-    }
-    else {
-        //save data
-        data[req.body.name] = req.body.key;
-        res.send();
-        return;
-    }
-});
+// data-saved
+const data = {}
 
-//API: GET ./api/pair
-app.get('/api/pair', multipartMiddleware, function(req, res) {
-    //check token
-    if (Check(req) === false) {
-        res.send();
-        return;
-    }
-    else {
-        //return data
-        if (!data[req.query.name]) {
-            res.status(404);
-            res.send();
-        }
-        else {
-            res.format({
-                'application/json': function () {
-        console.log('data: ' + data[req.body.name] + ' name: ' + req.body.name + ' key: ');
-                    res.send({
-                        key: data[req.query.name]
-                    });
-        console.log('data: ' + data[req.body.name] + ' name: ' + req.body.name + ' key: ' + req.body.key);
-                }
-            });
-        }
-        return;
-    }
-});
+// API: POST ./api/pair
+app.post('/api/pair', multipartMiddleware, function (req, res) {
+  // check token
+  if (Check(req.headers['hw-token']) === false) {
+    res.status(403)
+    res.send()
+  } else {
+    // save data
+    data[req.body.name] = req.body.key
+    console.log('Node adding succeed. Num of node: ' + data.length)
+    res.send()
+  }
+})
 
-//API: DELETE ./api/pair
-app.delete('/api/pair', multipartMiddleware, function(req, res) {
-    //check token
-    if (Check(req) === false) {
-        res.send();
-        return;
-    }
-    else {
-        //delete data
-        if (data[req.query.name]) {
-            delete data[req.query.name];
-            res.send();
+// API: GET ./api/pair
+app.get('/api/pair', multipartMiddleware, function (req, res) {
+  // check token
+  if (Check(req.headers['hw-token']) === false) {
+    res.status(403)
+    res.send()
+  } else {
+    // return data
+    if (!data[req.query.name]) {
+      res.status(404)
+      res.send()
+    } else {
+      res.format({
+        'application/json': function () {
+          // console.log('data: ' + data[req.body.name] + ' name: ' + req.body.name + ' key: ');
+          console.log('Node getting succeed. Num of node: ' + data.length)
+          res.send({
+            key: data[req.query.name]
+          })
+          // console.log('data: ' + data[req.body.name] + ' name: ' + req.body.name + ' key: ' + req.body.key);
         }
-        else {
-            res.status(404);
-            res.send();
-        }
-        return;
+      })
     }
-});
+  }
+})
+
+// API: DELETE ./api/pair
+app.delete('/api/pair', multipartMiddleware, function (req, res) {
+  // check token
+  if (Check(req.headers['hw-token']) === false) {
+    res.status(403)
+    res.send()
+  } else {
+    // delete data
+    if (data[req.query.name]) {
+      delete data[req.query.name]
+      console.log('Node deleting succeed. Num of node: ' + data.length)
+      res.send()
+    } else {
+      res.status(404)
+      res.send()
+    }
+  }
+})
